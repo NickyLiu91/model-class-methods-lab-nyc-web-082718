@@ -24,13 +24,7 @@ class Boat < ActiveRecord::Base
   end
 
   def self.sailboats
-    boats = Arel::Table.new(:boats)
-    boat_classifications = Arel::Table.new(:boat_classifications)
-    classifications = Arel::Table.new(:classifications)
-    # binding.pry
-    id = Classification.select('id').where(name: 'Sailboat')
-    boat_classifications.join(:boats).on(boat_classifications[:boat_id].eq(boats[:id])).where(classifications[:boat_id].eq('#{id}'))
-    # y.where(classifications[:name].eq('Sailboat'))
+    self.joins(:classifications).where(classifications : {name :"Sailboat"})
 
   end
 end
